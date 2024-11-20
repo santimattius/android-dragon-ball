@@ -158,11 +158,11 @@ fun CharacterItem(
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    val current = LocalContext.current
+    val context = LocalContext.current
 
     val previewHandler = AsyncImagePreviewHandler {
         ContextCompat.getDrawable(
-            current,
+            context,
             R.drawable.goku_normal
         )?.asImage()
     }
