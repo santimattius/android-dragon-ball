@@ -8,10 +8,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import coil.compose.SubcomposeAsyncImage
-import coil.request.ImageRequest
+import coil3.ImageLoader
+import coil3.compose.LocalPlatformContext
+import coil3.compose.SubcomposeAsyncImage
+import coil3.network.okhttp.OkHttpNetworkFetcherFactory
+import okhttp3.OkHttpClient
 
 @Composable
 internal fun NetworkImage(
@@ -21,8 +23,21 @@ internal fun NetworkImage(
     contentDescription: String? = null,
 ) {
     SubcomposeAsyncImage(
-        model = ImageRequest.Builder(LocalContext.current)
-            .data(imageUrl).build(),
+        model = imageUrl,
+        imageLoader = ImageLoader.Builder(LocalPlatformContext.current)
+            .components {
+                add(
+                    OkHttpNetworkFetcherFactory(
+                        callFactory = {
+                            OkHttpClient()
+                        }
+                    )
+                )
+            }
+            .build(),
+        contentDescription = contentDescription,
+        contentScale = contentScale,
+        modifier = modifier,
         loading = {
             Box(contentAlignment = Alignment.Center) {
                 CircularProgressIndicator(
@@ -31,8 +46,5 @@ internal fun NetworkImage(
                 )
             }
         },
-        contentDescription = contentDescription,
-        contentScale = contentScale,
-        modifier = modifier
     )
 }

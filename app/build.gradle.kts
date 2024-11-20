@@ -134,6 +134,8 @@ dependencies {
     ksp(libs.koin.annotations.compiler)
 
     implementation(libs.coil.core)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
 
     testImplementation(platform(libs.compose.bom))
     testImplementation(libs.junit)
