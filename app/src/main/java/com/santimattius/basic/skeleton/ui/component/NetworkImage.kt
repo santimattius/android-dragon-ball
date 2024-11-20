@@ -38,13 +38,6 @@ internal fun NetworkImage(
         contentDescription = contentDescription,
         contentScale = contentScale,
         modifier = modifier,
-        loading = {
-            Box(contentAlignment = Alignment.Center) {
-                CircularProgressIndicator(
-                    color = MaterialTheme.colorScheme.secondary,
-                    modifier = Modifier.size(32.dp)
-                )
-            }
-        },
+
     )
 }

@@ -136,6 +136,7 @@ dependencies {
     implementation(libs.coil.core)
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
+    debugImplementation(libs.coil.testing)
 
     testImplementation(platform(libs.compose.bom))
     testImplementation(libs.junit)
