@@ -2,6 +2,7 @@ package com.santimattius.basic.skeleton
 
 import android.app.Application
 import com.santimattius.basic.skeleton.di.AppModule
+import com.santimattius.basic.skeleton.di.DataModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.androix.startup.KoinStartup
 import org.koin.core.annotation.KoinExperimentalAPI
@@ -15,7 +16,7 @@ class MainApplication : Application(), KoinStartup {
     override fun onKoinStartup(): KoinAppDeclaration = {
         androidContext(this@MainApplication)
         allowOverride(false)
-        modules(AppModule().module)
+        modules(AppModule().module + DataModule().module)
         defaultModule()
     }
 }

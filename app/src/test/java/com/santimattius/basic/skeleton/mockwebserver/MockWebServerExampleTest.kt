@@ -1,6 +1,6 @@
 package com.santimattius.basic.skeleton.mockwebserver
 
-import com.santimattius.basic.skeleton.core.networking.RetrofitServiceCreator
+import com.santimattius.basic.skeleton.core.network.RetrofitServiceCreator
 import com.santimattius.basic.skeleton.tools.helpers.JsonLoader
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse

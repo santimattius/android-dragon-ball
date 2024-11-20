@@ -1,4 +1,4 @@
-package com.santimattius.basic.skeleton.core.networking
+package com.santimattius.basic.skeleton.core.network
 
 
 import okhttp3.Interceptor
