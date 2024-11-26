@@ -113,6 +113,7 @@ dependencies {
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.lifecycle.viewmodel.compose)
     implementation(libs.lifecycle.runtime.compose)
+    testImplementation(libs.lifecycle.viewmodel.testing)
     implementation(libs.activity.compose)
 
     implementation(platform(libs.compose.bom))
@@ -132,6 +133,8 @@ dependencies {
 
     compileOnly(libs.koin.annotations.core)
     ksp(libs.koin.annotations.compiler)
+    testImplementation(libs.koin.test)
+    testImplementation(libs.koin.test.junit4)
 
     implementation(libs.coil.core)
     implementation(libs.coil.compose)
@@ -140,6 +143,7 @@ dependencies {
 
     testImplementation(platform(libs.compose.bom))
     testImplementation(libs.junit)
+    testImplementation(libs.turbine)
 
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.compose.ui.test.junit)

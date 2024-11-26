@@ -12,7 +12,7 @@ androidxComposeBom = "2024.11.00"
 activityCompose = "1.9.3"
 
 coreKtx = "1.15.0"
-lifecycle = "2.8.7"
+lifecycle = "2.9.0-alpha07"
 
 retrofit = "2.11.0"
 okHttp = "4.12.0"
@@ -27,6 +27,7 @@ koinAnnotations = "2.0.0-Beta2"
 junit = "4.13.2"
 junitExt = "1.2.1"
 espressoCore = "3.6.1"
+turbine = "1.2.0"
 
 [libraries]
 # Define the libraries
@@ -34,6 +35,7 @@ espressoCore = "3.6.1"
 lifecycle_runtime_ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
 lifecycle_viewmodel_compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle" }
 lifecycle_runtime_compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle" }
+lifecycle_viewmodel_testing = { module = "androidx.lifecycle:lifecycle-viewmodel-testing", version.ref = "lifecycle" }
 
 # Compose libraries
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
@@ -67,6 +69,9 @@ koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koinBom" }
 koin-android = { group = "io.insert-koin", name = "koin-android" }
 koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compose" }
 koin-androidx-startup = { group = "io.insert-koin", name = "koin-androidx-startup" }
+koin-test = { group = "io.insert-koin", name = "koin-test" }
+koin-test-junit4 = { group = "io.insert-koin", name = "koin-test-junit4" }
+
 koin-annotations-core = { group = "io.insert-koin", name = "koin-annotations" , version.ref= "koinAnnotations" }
 koin-annotations-compiler = { group = "io.insert-koin", name = "koin-ksp-compiler", version.ref= "koinAnnotations" }
 # Android core
@@ -78,6 +83,7 @@ test_ext = { module = "androidx.test.ext:junit", version.ref = "junitExt" }
 test_espresso = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCore" }
 ##Plugins
 dep-google-secrets-gradle-plugin = { module = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin", version.ref = "googleSecretsPlugin" }
+turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 
 [bundles]
 # Define bundles/groups of libraries
