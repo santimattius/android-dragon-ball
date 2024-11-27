@@ -8,18 +8,8 @@ import com.santimattius.basic.skeleton.core.data.DragonBallCharacterService
 import com.santimattius.basic.skeleton.di.AppModule
 import com.santimattius.basic.skeleton.di.DataModule
 import com.santimattius.basic.skeleton.tools.rules.MainCoroutinesTestRule
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
-import kotlinx.coroutines.test.advanceUntilIdle
-import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
-import org.junit.After
 import org.junit.Assert.assertEquals
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.koin.core.component.get
@@ -48,9 +38,9 @@ class MainViewModelTest : KoinTest {
         viewModelScenario {
             MainViewModel(get<CharacterRepository>())
         }.use { scenario ->
-            val vm = scenario.viewModel
+            val viewModel = scenario.viewModel
             runTest {
-                vm.state.test {
+                viewModel.state.test {
                     assertEquals(10, awaitItem().characters.size)
                     cancelAndIgnoreRemainingEvents()
                 }
