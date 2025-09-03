@@ -164,7 +164,7 @@ fun DefaultPreview() {
         ContextCompat.getDrawable(
             context,
             R.drawable.goku_normal
-        )?.asImage()
+        )?.asImage()!!
     }
 
     CompositionLocalProvider(
