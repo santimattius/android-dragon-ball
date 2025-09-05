@@ -8,6 +8,7 @@ import com.santimattius.basic.skeleton.core.data.DragonBallCharacterService
 import com.santimattius.basic.skeleton.di.AppModule
 import com.santimattius.basic.skeleton.di.DataModule
 import com.santimattius.basic.skeleton.tools.rules.MainCoroutinesTestRule
+import com.santimattius.basic.skeleton.ui.screens.home.HomeViewModel
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Rule
@@ -36,7 +37,7 @@ class MainViewModelTest : KoinTest {
     @Test
     fun testViewModelScenario() {
         viewModelScenario {
-            MainViewModel(get<CharacterRepository>())
+            HomeViewModel(get<CharacterRepository>())
         }.use { scenario ->
             val viewModel = scenario.viewModel
             runTest {

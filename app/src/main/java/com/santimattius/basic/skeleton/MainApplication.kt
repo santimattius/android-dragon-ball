@@ -13,7 +13,7 @@ import org.koin.ksp.generated.module
 @OptIn(KoinExperimentalAPI::class)
 class MainApplication : Application(), KoinStartup {
 
-    override fun onKoinStartup(): KoinConfiguration = KoinConfiguration{
+    override fun onKoinStartup(): KoinConfiguration = KoinConfiguration {
         androidContext(this@MainApplication)
         allowOverride(false)
         modules(AppModule().module + DataModule().module)
