@@ -6,7 +6,7 @@ import com.santimattius.basic.skeleton.core.network.RetrofitServiceCreator
 import org.koin.core.annotation.Module
 import org.koin.core.annotation.Single
 
-@Module
+@Module(includes = [AppModule::class])
 class DataModule {
 
     @Single

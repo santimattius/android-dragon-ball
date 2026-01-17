@@ -4,25 +4,29 @@ import com.automattic.android.measure.reporters.SlowSlowTasksMetricsReporter
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.kotlin)
     alias(libs.plugins.ksp)
     alias(libs.plugins.detekt)
     alias(libs.plugins.google.secrets.gradle.plugin)
     alias(libs.plugins.automattic.measure.builds)
 }
 
-apply("$rootDir/gradle/coverage.gradle")
+kotlin {
+    compilerOptions {
+        languageVersion = org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_3
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11
+    }
+}
 
 android {
     namespace = "com.santimattius.basic.skeleton"
-    compileSdk = extraString("target_sdk_version").toInt()
+    compileSdk = 36
 
     defaultConfig {
-        applicationId = extraString("application_id")
-        minSdk = extraString("min_sdk_version").toInt()
-        targetSdk = extraString("target_sdk_version").toInt()
-        versionCode = extraString("version_code").toInt()
-        versionName = extraString("version_name")
+        applicationId = "com.santimattius.koin.skeleton"
+        minSdk = 23
+        targetSdk = 36
+        versionCode = 1
+        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -33,8 +37,6 @@ android {
     buildTypes {
         getByName("debug") {
             isMinifyEnabled = false
-            enableUnitTestCoverage = true
-            enableAndroidTestCoverage = true
         }
         getByName("release") {
             isMinifyEnabled = true
@@ -49,18 +51,6 @@ android {
             isReturnDefaultValues = true
             isIncludeAndroidResources = true
         }
-        unitTests.all {
-            testCoverage {
-                version = "0.8.8"
-            }
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
     }
     buildFeatures {
         compose = true
@@ -71,27 +61,23 @@ android {
             excludes.add("/META-INF/{AL2.0,LGPL2.1}")
         }
     }
-    // Set KSP sourceSet
-    applicationVariants.forEach { variant ->
-        variant.sourceSets.forEach {
-            it.javaDirectories += files("build/generated/ksp/${variant.name}/kotlin")
-        }
-    }
+
 }
 
-composeCompiler {
-    enableStrongSkippingMode = true
-    reportsDestination = layout.buildDirectory.dir("compose_compiler")
-}
-
-fun extraString(key: String): String {
-    return extra[key] as String
+androidComponents.onVariants { variant ->
+    variant.sources.kotlin?.addStaticSourceDirectory(
+        "build/generated/ksp/${variant.name}/kotlin"
+    )
 }
 
 detekt {
     config.setFrom("${project.rootDir}/config/detekt/detekt.yml")
     baseline = file("$rootDir/detekt-baseline.xml")
     autoCorrect = true
+}
+
+composeCompiler {
+    reportsDestination = layout.buildDirectory.dir("compose_compiler")
 }
 
 measureBuilds {
@@ -104,7 +90,7 @@ measureBuilds {
 }
 
 ksp {
-    arg("KOIN_CONFIG_CHECK","true")
+    arg("KOIN_CONFIG_CHECK", "true")
 }
 
 dependencies {

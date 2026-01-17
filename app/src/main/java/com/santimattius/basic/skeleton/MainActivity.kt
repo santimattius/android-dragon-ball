@@ -20,31 +20,20 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import coil3.BitmapImage
-import coil3.Image
-import coil3.annotation.ExperimentalCoilApi
-import coil3.asImage
-import coil3.compose.AsyncImagePreviewHandler
-import coil3.compose.LocalAsyncImagePreviewHandler
-import coil3.test.FakeImage
+import com.santimattius.basic.skeleton.core.data.Character
+import com.santimattius.basic.skeleton.core.data.DragonBallCharacter
 import com.santimattius.basic.skeleton.ui.component.AppBar
 import com.santimattius.basic.skeleton.ui.component.BasicSkeletonContainer
 import com.santimattius.basic.skeleton.ui.component.NetworkImage
 import org.koin.androidx.compose.koinViewModel
-import com.santimattius.basic.skeleton.core.data.Character
-import com.santimattius.basic.skeleton.core.data.DragonBallCharacter
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -152,39 +141,4 @@ fun CharacterItem(
                 .aspectRatio(ratio = 0.67f),
         )
     }
-}
-
-@OptIn(ExperimentalCoilApi::class)
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    val context = LocalContext.current
-
-    val previewHandler = AsyncImagePreviewHandler {
-        ContextCompat.getDrawable(
-            context,
-            R.drawable.goku_normal
-        )?.asImage()!!
-    }
-
-    CompositionLocalProvider(
-        LocalAsyncImagePreviewHandler provides previewHandler
-    ) {
-        BasicSkeletonContainer {
-            MainScreen(
-                state = MainUiState(
-                    isLoading = false,
-                    characters = fakeCharacters
-                ),
-            )
-        }
-    }
-}
-
-private val fakeCharacters = (1..10).map {
-    DragonBallCharacter(
-        id = it.toLong(),
-        name = "Goku $1",
-        imageUrl = "https://dragonball-api.com/characters/goku_normal.webp"
-    )
 }
