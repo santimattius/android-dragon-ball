@@ -1,4 +1,4 @@
-package com.santimattius.basic.skeleton
+package com.santimattius.basic.skeleton.ui.screens.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,24 +14,24 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 
-data class MainUiState(
+data class HomeUiState(
     val isLoading: Boolean = false,
     val characters: List<Character> = emptyList(),
     val hasError: Boolean = false,
 )
 
 @KoinViewModel
-class MainViewModel(
+class HomeViewModel(
     private val repository: CharacterRepository,
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(MainUiState())
-    val state: StateFlow<MainUiState> = _state.onStart {
+    private val _state = MutableStateFlow(HomeUiState())
+    val state: StateFlow<HomeUiState> = _state.onStart {
         fetch()
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),
-        initialValue = MainUiState()
+        initialValue = HomeUiState()
     )
 
     private val exceptionHandler = CoroutineExceptionHandler { _, _ ->
