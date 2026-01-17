@@ -19,6 +19,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -54,7 +55,7 @@ fun DetailScreen(
     viewModel: DetailViewModel,
     onBack: () -> Unit = {}
 ) {
-    val state = viewModel.state.collectAsStateWithLifecycle()
+    val state by viewModel.state.collectAsStateWithLifecycle()
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -74,22 +75,19 @@ fun DetailScreen(
                 .padding(paddingValues)
         ) {
             when {
-                state.value.isLoading -> {
+                state.isLoading -> {
                     CircularProgressIndicator(
                         modifier = Modifier.align(Alignment.Center)
                     )
                 }
 
-                state.value.hasError -> {
+                state.hasError -> {
                     Text("Error while loading")
                 }
 
-                state.value.character != null -> {
+                state.character != null -> {
                     DetailContentView(
-                        model = state.value.character!!,
-                        onFavoriteClick = {
-                            viewModel.toggleFavorite()
-                        }
+                        model = state.character!!,
                     )
                 }
             }
@@ -100,8 +98,6 @@ fun DetailScreen(
 @Composable
 fun DetailContentView(
     model: Character,
-    isFavorite: Boolean = false,
-    onFavoriteClick: () -> Unit = {},
 ) {
     val scrollState = rememberScrollState()
     Column(

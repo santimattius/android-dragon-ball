@@ -112,7 +112,6 @@ private fun GridOfCharacters(
         items(characters, key = { it.id }) { character ->
             CharacterItem(
                 character = character,
-                modifier = Modifier.clickable { onClick(character) },
                 onClick = onClick,
             )
         }

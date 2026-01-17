@@ -42,10 +42,6 @@ class DetailViewModel(
         }
     }
 
-    fun toggleFavorite() {
-
-    }
-
     class Factory(
         private val key: Detail,
     ) : ViewModelProvider.Factory, KoinComponent {
