@@ -2,6 +2,7 @@ package com.santimattius.basic.skeleton
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.santimattius.basic.skeleton.core.data.DragonBallCharacter
 import com.santimattius.basic.skeleton.core.data.DragonBallCharacterResponse
 import com.santimattius.basic.skeleton.core.data.DragonBallCharacterService
 import com.santimattius.basic.skeleton.tools.helpers.JsonLoader
@@ -16,5 +17,9 @@ class MockDragonBallCharacterService : DragonBallCharacterService {
             json,
             DragonBallCharacterResponse::class.java
         )
+    }
+
+    override suspend fun findCharacterById(id: Long): DragonBallCharacter {
+        return getCharacters().items.first { it.id == id }
     }
 }

@@ -1,15 +1,15 @@
 [versions]
 # Plugins
-androidGradlePlugin = "9.0.0"
-kotlinGradlePlugin = "2.3.0"
-ksp = "2.3.2"
+androidGradlePlugin = "9.1.0"
+kotlinGradlePlugin = "2.3.10"
+ksp = "2.3.6"
 
 detektGradlePlugin = "1.23.8"
 googleSecretsPlugin = "2.0.1"
 automatticMeasureBuilds = "3.2.2"
 # Core
-androidxComposeBom = "2026.01.00"
-activityCompose = "1.12.2"
+androidxComposeBom = "2026.02.01"
+activityCompose = "1.12.4"
 
 coreKtx = "1.17.0"
 lifecycle = "2.10.0"
@@ -18,14 +18,14 @@ retrofit = "3.0.0"
 okHttp = "5.3.2"
 coroutine = "1.10.2"
 gson = "2.13.2"
-coil = "3.3.0"
+coil = "3.4.0"
 
 koinBom = "4.1.1"
 koinAnnotations = "2.3.1"
 
-nav3Core = "1.0.0"
+nav3Core = "1.0.1"
 lifecycleViewmodelNav3 = "2.10.0"
-kotlinxSerializationCore = "1.9.0"
+kotlinxSerializationCore = "1.10.0"
 material3AdaptiveNav3 = "1.0.0-SNAPSHOT"
 
 # Testing
