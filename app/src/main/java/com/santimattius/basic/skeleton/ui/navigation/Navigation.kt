@@ -1,7 +1,6 @@
 package com.santimattius.basic.skeleton.ui.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
@@ -12,6 +11,8 @@ import com.santimattius.basic.skeleton.ui.screens.detail.DetailScreenRoute
 import com.santimattius.basic.skeleton.ui.screens.detail.DetailViewModel
 import com.santimattius.basic.skeleton.ui.screens.home.HomeScreenRoute
 import kotlinx.serialization.Serializable
+import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 @Serializable
 data object Home : NavKey
@@ -37,7 +38,7 @@ fun AppNavGraph() {
             }
             entry<Detail> { key ->
                 DetailScreenRoute(
-                    viewModel = viewModel(factory = DetailViewModel.Factory(key)),
+                    viewModel = koinViewModel<DetailViewModel> { parametersOf(key.id) },
                     onBack = { backStack.removeLastOrNull() }
                 )
             }

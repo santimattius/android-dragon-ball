@@ -39,12 +39,12 @@ import com.santimattius.basic.skeleton.core.data.DragonBallCharacter
 import com.santimattius.basic.skeleton.ui.component.AppBar
 import com.santimattius.basic.skeleton.ui.component.BasicSkeletonContainer
 import com.santimattius.basic.skeleton.ui.component.NetworkImage
-import org.koin.androidx.compose.koinViewModel
+import org.koin.compose.viewmodel.koinViewModel
 
 
 @Composable
 fun HomeScreenRoute(
-    viewModel: HomeViewModel = koinViewModel(),
+    viewModel: HomeViewModel = koinViewModel<HomeViewModel>(),
     onClick: (Character) -> Unit = {},
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()

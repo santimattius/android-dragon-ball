@@ -2,8 +2,6 @@
 # Plugins
 androidGradlePlugin = "9.2.0"
 kotlinGradlePlugin = "2.3.21"
-ksp = "2.3.6"
-
 detektGradlePlugin = "1.23.8"
 googleSecretsPlugin = "2.0.1"
 automatticMeasureBuilds = "3.2.2"
@@ -21,7 +19,7 @@ gson = "2.13.2"
 coil = "3.4.0"
 
 koinBom = "4.2.1"
-koinAnnotations = "2.3.1"
+koinCompilerPlugin = "1.0.0-RC1"
 
 nav3Core = "1.1.1"
 lifecycleViewmodelNav3 = "2.10.0"
@@ -77,8 +75,7 @@ koin-androidx-startup = { group = "io.insert-koin", name = "koin-androidx-startu
 koin-test = { group = "io.insert-koin", name = "koin-test" }
 koin-test-junit4 = { group = "io.insert-koin", name = "koin-test-junit4" }
 
-koin-annotations-core = { group = "io.insert-koin", name = "koin-annotations" , version.ref= "koinAnnotations" }
-koin-annotations-compiler = { group = "io.insert-koin", name = "koin-ksp-compiler", version.ref= "koinAnnotations" }
+koin-annotations = { group = "io.insert-koin", name = "koin-annotations" }
 
 # Core Navigation 3 libraries
 androidx-navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "nav3Core" }
@@ -116,7 +113,7 @@ retrofit = ["retrofit_core", "retrofit_gson"]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detektGradlePlugin" }
-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+koin-compiler-plugin = { id = "io.insert-koin.compiler.plugin", version.ref = "koinCompilerPlugin" }
 google-secrets-gradle-plugin = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "googleSecretsPlugin" }
 automattic-measure-builds = { id = "com.automattic.android.measure-builds", version.ref = "automatticMeasureBuilds" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlinGradlePlugin" }

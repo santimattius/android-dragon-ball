@@ -5,8 +5,7 @@ import androidx.lifecycle.viewmodel.testing.viewModelScenario
 import app.cash.turbine.test
 import com.santimattius.basic.skeleton.core.data.CharacterRepository
 import com.santimattius.basic.skeleton.core.data.DragonBallCharacterService
-import com.santimattius.basic.skeleton.di.AppModule
-import com.santimattius.basic.skeleton.di.DataModule
+import com.santimattius.basic.skeleton.di.DiModule
 import com.santimattius.basic.skeleton.tools.rules.MainCoroutinesTestRule
 import com.santimattius.basic.skeleton.ui.screens.home.HomeViewModel
 import kotlinx.coroutines.test.runTest
@@ -15,7 +14,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.koin.core.component.get
 import org.koin.dsl.module
-import org.koin.ksp.generated.module
+import org.koin.plugin.module.dsl.module
 import org.koin.test.KoinTest
 import org.koin.test.KoinTestRule
 
@@ -26,7 +25,7 @@ class MainViewModelTest : KoinTest {
 
     @get:Rule
     val koinTestRule = KoinTestRule.create {
-        modules(AppModule().module + DataModule().module)
+        module<DiModule>()
         modules(
             modules = module {
                 single<DragonBallCharacterService> { MockDragonBallCharacterService() }

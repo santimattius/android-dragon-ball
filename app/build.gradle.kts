@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.jetbrains.kotlin.serialization)
-    alias(libs.plugins.ksp)
+    alias(libs.plugins.koin.compiler.plugin)
     alias(libs.plugins.detekt)
     alias(libs.plugins.google.secrets.gradle.plugin)
     alias(libs.plugins.automattic.measure.builds)
@@ -40,6 +40,7 @@ android {
         }
         getByName("release") {
             isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -64,12 +65,6 @@ android {
 
 }
 
-androidComponents.onVariants { variant ->
-    variant.sources.kotlin?.addStaticSourceDirectory(
-        "build/generated/ksp/${variant.name}/kotlin"
-    )
-}
-
 detekt {
     config.setFrom("${project.rootDir}/config/detekt/detekt.yml")
     baseline = file("$rootDir/detekt-baseline.xml")
@@ -89,9 +84,10 @@ measureBuilds {
     }
 }
 
-ksp {
-    arg("KOIN_CONFIG_CHECK", "true")
-    arg("KOIN_DEFAULT_MODULE", "true")
+koinCompiler {
+    compileSafety = true
+    userLogs = true
+    debugLogs = false
 }
 
 dependencies {
@@ -114,8 +110,8 @@ dependencies {
     implementation(libs.kotlinx.serialization.core)
 
     implementation(libs.bundles.coroutine)
-    testImplementation(libs.coroutine.test)
     implementation(libs.bundles.retrofit)
+    testImplementation(libs.coroutine.test)
     implementation(libs.gson.core)
     testImplementation(libs.mockwebserver)
 
@@ -124,8 +120,7 @@ dependencies {
     implementation(libs.koin.androidx.compose)
     implementation(libs.koin.androidx.startup)
 
-    compileOnly(libs.koin.annotations.core)
-    ksp(libs.koin.annotations.compiler)
+    implementation(libs.koin.annotations)
     testImplementation(libs.koin.test)
     testImplementation(libs.koin.test.junit4)
 
