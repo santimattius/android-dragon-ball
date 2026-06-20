@@ -17,6 +17,7 @@ class CharacterRepository(
 }
 
 
+@Suppress("TooGenericExceptionCaught")
 inline fun <T, R> T.runCatchingNoCancellable(block: T.() -> R): Result<R> {
     return try {
         Result.success(block())
