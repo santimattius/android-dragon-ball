@@ -87,12 +87,19 @@ Generate coverage reports for your builds:
 
 ## R8 Configuration Analyzer — caso practico
 
-Este repositorio incluye una demo practica del **R8 Configuration Analyzer** de Android Studio (disponible desde Narwhal 2025.1.1). La demo permite comparar el impacto de reglas ProGuard amplias vs. quirurgicas sobre la calidad de la minificacion. Ver el [articulo] para el contexto completo.
+Este repositorio incluye una demo practica del **R8 Configuration Analyzer**. La demo permite comparar el impacto de reglas ProGuard amplias vs. quirurgicas sobre la calidad de la minificacion. Ver el [articulo] para el contexto completo.
 
-### Requisitos previos
+### Como funciona el analyzer
 
-- **Android Studio Narwhal 2025.1.1+** (requerido para el panel R8 Configuration Analyzer)
-- **Build type**: `benchmark` (minificado, firmado con debug key)
+El R8 Configuration Analyzer genera un **reporte HTML** que muestra scores de shrinking, obfuscation y optimization, e identifica reglas unused, duplicadas y subsumed. Se activa pasando un system property al build de R8:
+
+```bash
+./gradlew :app:assembleBenchmark \
+  -Dcom.android.tools.r8.dumpkeepradiushtmltodirectory=/tmp/r8-report
+# Abre /tmp/r8-report/configanalyzer.html en el navegador
+```
+
+> Requiere R8 9.3.7-dev+ (ya pinned en `settings.gradle.kts`) y AGP 9.2+.
 
 ### Como reproducir el flujo
 
@@ -104,17 +111,29 @@ El historial tiene tres tags que representan cada estado del demo:
 | [`r8-demo/01-broad-rule`](https://github.com/santimattius/android-dragon-ball/tree/r8-demo%2F01-broad-rule) | Regla amplia | `-keep class core.data.** { *; }` — el anti-patron "por las dudas" |
 | [`r8-demo/02-surgical-rule`](https://github.com/santimattius/android-dragon-ball/tree/r8-demo%2F02-surgical-rule) | Regla quirurgica | Keep acotado a `@SerializedName` unicamente |
 
-Para hacer checkout de cada estado:
+### Generar reportes automaticamente
+
+El script `scripts/r8-analyze.sh` hace checkout de cada tag, ensambla el build y abre los reportes en el navegador:
 
 ```bash
-git checkout r8-demo/00-baseline   # Estado base — proguard-rules.pro vacío
-git checkout r8-demo/01-broad-rule  # Estado 01 — regla amplia (anti-patrón)
-git checkout r8-demo/02-surgical-rule  # Estado 02 — regla quirúrgica (recomendado)
+# Analizar los 3 tags del demo
+./scripts/r8-analyze.sh
+
+# Analizar solo tags especificos (01 y 02)
+./scripts/r8-analyze.sh 01 02
 ```
+
+Los reportes se guardan en `build/r8-analyzer-reports/<tag>/configanalyzer.html`.
+
+### Generar reportes en CI
+
+En GitHub Actions → **Run workflow** (dispatch manual) → job `r8-analyzer`. Los reportes HTML quedan disponibles como artifacts del run y pueden descargarse desde la UI de Actions.
+
+Se puede especificar qué tags analizar en el input `r8_tags` (por defecto: `r8-demo/01-broad-rule,r8-demo/02-surgical-rule`).
 
 ### Resultados del analyzer
 
-> **Nota**: completar esta tabla despues de correr el R8 Configuration Analyzer en Android Studio sobre cada tag.
+> **Nota**: completar esta tabla despues de correr el script `r8-analyze.sh` o el job de CI.
 
 | Metrica            | 01-broad-rule | 02-surgical-rule | Delta |
 |--------------------|---------------|------------------|-------|
@@ -124,7 +143,7 @@ git checkout r8-demo/02-surgical-rule  # Estado 02 — regla quirúrgica (recome
 | AAB size (MB)      | TBD           | TBD              | TBD   |
 | Cold start (ms)    | TBD           | TBD              | TBD   |
 
-### Comandos utiles
+### Otros comandos utiles
 
 ```bash
 # Ensamblar build minificado
