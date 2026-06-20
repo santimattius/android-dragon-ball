@@ -24,3 +24,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "android-dragon-ball"
 include(":app")
+include(":macrobenchmark")
