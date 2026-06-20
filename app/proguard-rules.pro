@@ -21,29 +21,12 @@
 #-renamesourcefileattribute SourceFile
 
 # =============================================================================
-# R8 DEMO — Higiene: reglas problemáticas (punto de partida para el analyzer)
-# Estas reglas son típicas de proyectos reales: heredadas, sin dueño conocido,
-# copiadas "por las dudas". El R8 Configuration Analyzer las identifica como:
-#   - unused: no matchean ninguna clase en el build actual
-#   - identical: duplican otra regla ya presente
-# =============================================================================
-
-# Regla UNUSED: este paquete no existe en el proyecto (herencia de un módulo eliminado)
--keep class com.santimattius.basic.skeleton.legacy.** { *; }
-
-# Regla IDENTICAL: duplica el scope que ya cubre la regla quirúrgica de abajo
--keepclassmembers class com.santimattius.basic.skeleton.core.data.** {
-    @com.google.gson.annotations.SerializedName <fields>;
-    <init>(...);
-}
-
-# =============================================================================
-# R8 DEMO — Estado 02: Regla quirúrgica (@SerializedName únicamente)
-# Después de correr el R8 Configuration Analyzer, identificamos que Gson solo
-# necesita: los campos anotados con @SerializedName (para mapear JSON keys) y
-# los constructores (para instanciar las clases). El resto puede ser shrunk/
-# obfuscated por R8 libremente.
-# Ver: r8-demo/02-surgical-rule
+# R8 DEMO — Estado 02 + Higiene aplicada
+# El R8 Configuration Analyzer identificó:
+#   - 1 regla unused (paquete "legacy" inexistente): eliminada
+#   - 1 regla identical (duplicado de la regla quirúrgica): eliminada
+# Resultado: config auditable, score sin cambio (la higiene no sube el score
+# por sí sola, pero elimina ruido y facilita auditorías futuras).
 # =============================================================================
 -keepclassmembers class com.santimattius.basic.skeleton.core.data.** {
     @com.google.gson.annotations.SerializedName <fields>;
