@@ -100,16 +100,16 @@ El historial tiene tres tags que representan cada estado del demo:
 
 | Tag | Estado | Descripcion |
 |-----|--------|-------------|
-| `r8-demo/00-baseline` | Estado base | Minificacion activa, `proguard-rules.pro` vacio |
-| `r8-demo/01-broad-rule` | Regla amplia | `-keep class core.data.** { *; }` — el anti-patron "por las dudas" |
-| `r8-demo/02-surgical-rule` | Regla quirurgica | Keep acotado a `@SerializedName` unicamente |
+| [`r8-demo/00-baseline`](https://github.com/santimattius/android-dragon-ball/tree/r8-demo%2F00-baseline) | Estado base | Minificacion activa, `proguard-rules.pro` vacio |
+| [`r8-demo/01-broad-rule`](https://github.com/santimattius/android-dragon-ball/tree/r8-demo%2F01-broad-rule) | Regla amplia | `-keep class core.data.** { *; }` — el anti-patron "por las dudas" |
+| [`r8-demo/02-surgical-rule`](https://github.com/santimattius/android-dragon-ball/tree/r8-demo%2F02-surgical-rule) | Regla quirurgica | Keep acotado a `@SerializedName` unicamente |
 
 Para hacer checkout de cada estado:
 
 ```bash
-git checkout r8-demo/00-baseline
-git checkout r8-demo/01-broad-rule
-git checkout r8-demo/02-surgical-rule
+git checkout r8-demo/00-baseline   # Estado base — proguard-rules.pro vacío
+git checkout r8-demo/01-broad-rule  # Estado 01 — regla amplia (anti-patrón)
+git checkout r8-demo/02-surgical-rule  # Estado 02 — regla quirúrgica (recomendado)
 ```
 
 ### Resultados del analyzer
