@@ -84,4 +84,63 @@ Generate coverage reports for your builds:
 - **[Turbine](https://github.com/cashapp/turbine)**: For testing Coroutine Flows.
 
 ---
+
+## R8 Configuration Analyzer — caso practico
+
+Este repositorio incluye una demo practica del **R8 Configuration Analyzer** de Android Studio (disponible desde Narwhal 2025.1.1). La demo permite comparar el impacto de reglas ProGuard amplias vs. quirurgicas sobre la calidad de la minificacion. Ver el [articulo] para el contexto completo.
+
+### Requisitos previos
+
+- **Android Studio Narwhal 2025.1.1+** (requerido para el panel R8 Configuration Analyzer)
+- **Build type**: `benchmark` (minificado, firmado con debug key)
+
+### Como reproducir el flujo
+
+El historial tiene tres tags que representan cada estado del demo:
+
+| Tag | Estado | Descripcion |
+|-----|--------|-------------|
+| `r8-demo/00-baseline` | Estado base | Minificacion activa, `proguard-rules.pro` vacio |
+| `r8-demo/01-broad-rule` | Regla amplia | `-keep class core.data.** { *; }` — el anti-patron "por las dudas" |
+| `r8-demo/02-surgical-rule` | Regla quirurgica | Keep acotado a `@SerializedName` unicamente |
+
+Para hacer checkout de cada estado:
+
+```bash
+git checkout r8-demo/00-baseline
+git checkout r8-demo/01-broad-rule
+git checkout r8-demo/02-surgical-rule
+```
+
+### Resultados del analyzer
+
+> **Nota**: completar esta tabla despues de correr el R8 Configuration Analyzer en Android Studio sobre cada tag.
+
+| Metrica            | 01-broad-rule | 02-surgical-rule | Delta |
+|--------------------|---------------|------------------|-------|
+| Shrinking score    | TBD           | TBD              | TBD   |
+| Obfuscation score  | TBD           | TBD              | TBD   |
+| Optimization score | TBD           | TBD              | TBD   |
+| AAB size (MB)      | TBD           | TBD              | TBD   |
+| Cold start (ms)    | TBD           | TBD              | TBD   |
+
+### Comandos utiles
+
+```bash
+# Ensamblar build minificado
+./gradlew :app:assembleBenchmark
+
+# Correr smoke tests (requiere emulador conectado o GMD)
+./gradlew :app:pixel6Api34BenchmarkAndroidTest \
+  -Pandroid.testInstrumentationRunnerArguments.annotation=com.santimattius.basic.skeleton.smoke.SmokeTest
+
+# Correr macrobenchmark (requiere dispositivo fisico o emulador desbloqueado)
+./gradlew :macrobenchmark:connectedBenchmarkAndroidTest
+```
+
+### Nota sobre Gson vs kotlinx.serialization
+
+La app usa **Gson** para la deserializacion de JSON (via Retrofit + `GsonConverterFactory`), por lo que las keep rules apuntan a la anotacion `@SerializedName` de Gson, no a `@Serializable` de kotlinx.serialization.
+
+---
 Developed with ❤️ by [Santiago Mattiauda](https://github.com/santimattius)
