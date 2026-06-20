@@ -19,3 +19,12 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# =============================================================================
+# R8 DEMO — Estado 01: Regla amplia ("por las dudas")
+# Esta regla conserva TODAS las clases en core.data para garantizar que Gson
+# puede hacer reflection sobre los modelos de red. Es el punto de partida
+# ANTES de correr el R8 Configuration Analyzer.
+# Ver: r8-demo/01-broad-rule
+# =============================================================================
+-keep class com.santimattius.basic.skeleton.core.data.** { *; }
