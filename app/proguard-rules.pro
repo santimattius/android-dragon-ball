@@ -21,10 +21,14 @@
 #-renamesourcefileattribute SourceFile
 
 # =============================================================================
-# R8 DEMO — Estado 01: Regla amplia ("por las dudas")
-# Esta regla conserva TODAS las clases en core.data para garantizar que Gson
-# puede hacer reflection sobre los modelos de red. Es el punto de partida
-# ANTES de correr el R8 Configuration Analyzer.
-# Ver: r8-demo/01-broad-rule
+# R8 DEMO — Estado 02: Regla quirúrgica (@SerializedName únicamente)
+# Después de correr el R8 Configuration Analyzer, identificamos que Gson solo
+# necesita: los campos anotados con @SerializedName (para mapear JSON keys) y
+# los constructores (para instanciar las clases). El resto puede ser shrunk/
+# obfuscated por R8 libremente.
+# Ver: r8-demo/02-surgical-rule
 # =============================================================================
--keep class com.santimattius.basic.skeleton.core.data.** { *; }
+-keepclassmembers class com.santimattius.basic.skeleton.core.data.** {
+    @com.google.gson.annotations.SerializedName <fields>;
+    <init>(...);
+}
