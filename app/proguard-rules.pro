@@ -19,3 +19,16 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# =============================================================================
+# R8 DEMO — Estado 02 + Higiene aplicada
+# El R8 Configuration Analyzer identificó:
+#   - 1 regla unused (paquete "legacy" inexistente): eliminada
+#   - 1 regla identical (duplicado de la regla quirúrgica): eliminada
+# Resultado: config auditable, score sin cambio (la higiene no sube el score
+# por sí sola, pero elimina ruido y facilita auditorías futuras).
+# =============================================================================
+-keepclassmembers class com.santimattius.basic.skeleton.core.data.** {
+    @com.google.gson.annotations.SerializedName <fields>;
+    <init>(...);
+}
