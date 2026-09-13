@@ -32,12 +32,13 @@ class DetailViewModel(
     fun fetch() {
         _state.update { it.copy(isLoading = true) }
         viewModelScope.launch {
-            try {
-                val character = repository.findCharacterById(characterId.toLong()).getOrThrow()
-                _state.update { it.copy(isLoading = false, character = character) }
-            } catch (ex: Throwable) {
-                _state.update { it.copy(isLoading = false, hasError = true) }
-            }
+            repository.findCharacterById(characterId.toLong())
+                .onSuccess { character ->
+                    _state.update { it.copy(isLoading = false, character = character) }
+                }
+                .onFailure {
+                    _state.update { it.copy(isLoading = false, hasError = true) }
+                }
         }
     }
 }
