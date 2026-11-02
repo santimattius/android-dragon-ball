@@ -17,6 +17,7 @@ class CharacterRepository(
 }
 
 
+@Suppress("TooGenericExceptionCaught") // Intentional: wraps any failure in Result, rethrowing cancellation.
 inline fun <T, R> T.runCatchingNoCancellable(block: T.() -> R): Result<R> {
     return try {
         Result.success(block())
