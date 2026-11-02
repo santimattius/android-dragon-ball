@@ -1,0 +1,58 @@
+name: Feature request
+description: Propose a user-facing capability or behavior change
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Describe the outcome first. Include enough evidence for a
+        maintainer to review and approve the request.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What user or developer problem should this change solve?
+      placeholder: Describe the current limitation and who it affects.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the expected behavior and the smallest useful scope.
+      placeholder: Explain the desired outcome, including examples when useful.
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: List observable conditions that demonstrate completion.
+      placeholder: |
+        - [ ] Expected behavior is implemented
+        - [ ] Relevant tests pass
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Describe alternatives or workarounds, if any.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Submission checklist
+      options:
+        - label: I searched open and closed issues for duplicates.
+          required: true
+        - label: I can describe how this change will be verified.
+          required: true
