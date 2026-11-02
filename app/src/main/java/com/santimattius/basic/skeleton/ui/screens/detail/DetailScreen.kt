@@ -55,7 +55,7 @@ fun DetailScreen(
     viewModel: DetailViewModel,
     onBack: () -> Unit = {}
 ) {
-    val state by viewModel.state.collectAsStateWithLifecycle()
+
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -69,6 +69,7 @@ fun DetailScreen(
             )
         },
     ) { paddingValues ->
+        val state by viewModel.state.collectAsStateWithLifecycle()
         Box(
             modifier = Modifier
                 .fillMaxSize()
