@@ -1,0 +1,38 @@
+name: Android CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Android Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: gradle
+
+      - name: Create local.properties
+        run: echo "sdk.dir=$ANDROID_HOME" > local.properties
+
+      - name: Grant execute permission for Gradle
+        run: chmod +x gradlew
+
+      - name: Build and test
+        run: ./gradlew :app:assembleDebug :app:testDebugUnitTest :app:detekt
+
+      - name: Ensure checks did not modify sources
+        run: git diff --exit-code

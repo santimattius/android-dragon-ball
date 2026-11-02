@@ -1,30 +1,30 @@
 [versions]
 # Plugins
 androidGradlePlugin = "9.4.1"
-kotlinGradlePlugin = "2.4.20"
+kotlinGradlePlugin = "2.4.21"
 detektGradlePlugin = "1.23.8"
 googleSecretsPlugin = "2.0.1"
-automatticMeasureBuilds = "3.2.2"
+automatticMeasureBuilds = "3.2.3"
 # Core
-androidxComposeBom = "2026.08.00"
+androidxComposeBom = "2026.09.00"
 activityCompose = "1.13.0"
 
 coreKtx = "1.19.1"
 lifecycle = "2.11.0"
 
 retrofit = "3.0.0"
-okHttp = "5.5.0"
+okHttp = "5.5.1"
 coroutine = "1.11.0"
-gson = "2.14.0"
+gson = "2.15.0"
 coil = "3.6.3"
 
 koinBom = "4.2.2"
-koinCompilerPlugin = "1.1.0"
+koinCompilerPlugin = "1.2.1"
 
-nav3Core = "1.1.3"
+nav3Core = "1.2.0"
 lifecycleViewmodelNav3 = "2.11.0"
-kotlinxSerializationCore = "1.11.0"
-material3AdaptiveNav3 = "1.0.0-SNAPSHOT"
+kotlinxSerializationCore = "1.12.0"
+material3AdaptiveNav3 = "1.3.0"
 
 # Testing
 junit = "4.13.2"
@@ -85,9 +85,7 @@ androidx-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", vers
 androidx-lifecycle-viewmodel-navigation3 = { module = "androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "lifecycleViewmodelNav3" }
 kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinxSerializationCore" }
 
-# Note: The Material3 adaptive layouts library for Navigation 3 is currently
-# only available in snapshot builds. Follow the instructions at androidx.dev to
-# add the snapshot builds repository to your project.
+# Optional Material3 adaptive layouts integration for Navigation 3.
 androidx-material3-adaptive-navigation3 = { group = "androidx.compose.material3.adaptive", name = "adaptive-navigation3", version.ref = "material3AdaptiveNav3" }
 
 

@@ -78,6 +78,22 @@ Generate coverage reports for your builds:
 - **Debug**: `./gradlew :app:testDebugUnitTestCoverage`
 - **Release**: `./gradlew :app:testReleaseUnitTestCoverage`
 
+## 🔗 Deep Links
+
+Character details can be opened with either supported URI:
+
+- `dragonball://characters/{id}`
+- `https://dragonball.santimattius.com/characters/{id}`
+
+Both links create a synthetic back stack containing Home followed by the requested character detail. Test them with ADB:
+
+```shell
+adb shell am start -W -a android.intent.action.VIEW -d "dragonball://characters/42" com.santimattius.koin.skeleton
+adb shell am start -W -a android.intent.action.VIEW -d "https://dragonball.santimattius.com/characters/42" com.santimattius.koin.skeleton
+```
+
+The HTTPS link is intentionally unverified for now and must be enabled or opened manually; no Digital Asset Links certificate association is required.
+
 ## 📚 Libraries Used in Testing
 - **[Mockk](https://mockk.io/)**: For powerful and idiomatic mocking in Kotlin.
 - **[MockWebServer](https://github.com/square/okhttp/tree/master/mockwebserver)**: For hermetic network testing.
