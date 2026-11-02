@@ -1,11 +1,14 @@
 package com.santimattius.basic.skeleton.ui.navigation
 
+import android.content.Intent
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
+import androidx.navigation3.runtime.deeplink.DeepLinkRequest
 import androidx.navigation3.ui.NavDisplay
 import com.santimattius.basic.skeleton.ui.screens.detail.DetailScreenRoute
 import com.santimattius.basic.skeleton.ui.screens.detail.DetailViewModel
@@ -21,8 +24,18 @@ data object Home : NavKey
 data class Detail(val id: String) : NavKey
 
 @Composable
-fun AppNavGraph() {
+fun AppNavGraph(deepLinkIntent: Intent? = null) {
     val backStack = rememberNavBackStack(Home)
+
+    LaunchedEffect(deepLinkIntent) {
+        val uri = deepLinkIntent?.data ?: return@LaunchedEffect
+        val deepLinkBackStack = resolveDeepLink(DeepLinkRequest(uri = uri))
+            ?: return@LaunchedEffect
+
+        backStack.clear()
+        backStack.addAll(deepLinkBackStack)
+    }
+
     NavDisplay(
         backStack = backStack,
         onBack = { backStack.removeLastOrNull() },
