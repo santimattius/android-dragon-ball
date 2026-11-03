@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Dragon Ball</string>
+    <string name="select_character">Select a character</string>
     <string name="text_desc_main_action">Say Hello Android</string>
 </resources>

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -39,12 +40,14 @@ import com.santimattius.basic.skeleton.ui.component.NetworkImage
 fun DetailScreenRoute(
     modifier: Modifier = Modifier,
     viewModel: DetailViewModel,
+    showBackButton: Boolean = true,
     onBack: () -> Unit = {}
 ) {
 
     DetailScreen(
         modifier = modifier,
         viewModel = viewModel,
+        showBackButton = showBackButton,
         onBack = onBack
     )
 }
@@ -53,6 +56,7 @@ fun DetailScreenRoute(
 fun DetailScreen(
     modifier: Modifier = Modifier,
     viewModel: DetailViewModel,
+    showBackButton: Boolean = true,
     onBack: () -> Unit = {}
 ) {
 
@@ -60,12 +64,13 @@ fun DetailScreen(
         modifier = modifier,
         topBar = {
             AppBar(
-                title = stringResource(id = R.string.app_name),
-                navIcon = AppBarIconModel(
-                    icon = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = "Back",
-                    action = onBack
-                )
+                navIcon = if (showBackButton) {
+                    AppBarIconModel(
+                        icon = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Back",
+                        action = onBack
+                    )
+                } else null
             )
         },
     ) { paddingValues ->
@@ -118,6 +123,7 @@ fun DetailContentView(
                 contentDescription = model.name,
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
+                    .widthIn(max = 360.dp)
                     .fillMaxWidth(fraction = 0.6f)
                     .background(Color.White)
                     .aspectRatio(ratio = 0.67f),

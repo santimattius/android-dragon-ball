@@ -104,7 +104,7 @@ private fun GridOfCharacters(
 ) {
 
     LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
+        columns = GridCells.Adaptive(minSize = 160.dp),
         contentPadding = PaddingValues(4.dp),
         modifier = modifier
     ) {
